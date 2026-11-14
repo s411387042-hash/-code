@@ -53,7 +53,9 @@ for i, sa in enumerate(sigma_a_list):
     scatter = ax.scatter(X_tr[:, 0], X_tr[:, 1], X_tr[:, 2], c=Y_tr, cmap='viridis', alpha=0.6)
     ax.set_title(f"Train Set (sigma_a={sa})\nDims: 0, 1, 2")
 plt.tight_layout()
-plt.savefig('result.png')
+# 改成存檔：
+fig.savefig('1_1_3D_scatter.png')
+plt.close(fig) # 存檔完關閉畫布釋放記憶體
 
 # --- 1.2 PCA Implementation ---
 def apply_pca(X_train, X_test, n_components):
@@ -142,7 +144,13 @@ for i, sa in enumerate(sigma_a_list):
     knn.fit(X_tr_lda2, Y_tr)
     results['LDA-2D'].append(knn.score(X_te_lda2, Y_te))
 
-plt.savefig('result.png')
+# 把迴圈後的 plt.show() 改成下面這樣：
+fig_pca.tight_layout()
+fig_lda.tight_layout()
+fig_pca.savefig('1_4_PCA_2D_Projection.png')
+fig_lda.savefig('1_4_LDA_2D_Projection.png')
+plt.close(fig_pca)
+plt.close(fig_lda)
 
 # 1.6 Results output and Accuracy plot
 print("\n--- 5x4 Accuracy Table ---")
@@ -160,4 +168,7 @@ plt.ylabel('Accuracy')
 plt.xticks(sigma_a_list)
 plt.legend()
 plt.grid(True)
-plt.savefig('result.png')
+
+# 改成存檔：
+plt.savefig('1_6_Accuracy_Plot.png')
+plt.close()
